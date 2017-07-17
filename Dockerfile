@@ -9,4 +9,6 @@ COPY CoveragePlots.R /usr/local/bin/
 
 RUN ln -s /usr/bin/Rscript /usr/local/bin/
 
-ENV PATH="/bin/:/usr/bin:/usr/local/bin"
+RUN apt-get install bc
+
+ENV PATH "/bin/:/usr/bin/:/usr/local/bin"
