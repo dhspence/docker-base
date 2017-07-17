@@ -34,10 +34,10 @@ echo -e "CONDENSED_ONTARGET_READS\t$CONDENSEDONTARGETREADS"
 echo -e "PERCENT_CONDENSED_ONTARGET_READS\t"$(echo "$CONDENSEDONTARGETREADS / $ALIGNEDREADS * 100" | bc -l)
 
 # histogram of the BC tag. anything over 25 reads is grouped together
-$SAMTOOLS view -F 0x904 -L $TARGETBED $CBAM | /usr/bin/perl -ne '{/BC:Z:(\d+)/; $i=$1; $i=25 if $i>25; $h{$1}++;} END { print "READS_PER_UMI\t",join(",", map { $h{$_} || 0 } 1..25),"\n"; }'
+$SAMTOOLS view -F 0x904 -L $TARGETBED $CBAM | perl -ne '{/BC:Z:(\d+)/; $i=$1; $i=25 if $i>25; $h{$1}++;} END { print "READS_PER_UMI\t",join(",", map { $h{$_} || 0 } 1..25),"\n"; }'
 
 # median coverage by gene and bw plot
-$SAMTOOLS depth -d 100000 -a -q 20 -Q 20 -b $COVERAGEBED | awk -v OFS="\t" '{ print $1,$2-1,$2,1+c++,$3; }' | $BEDTOOLS intersect -sorted -a $COVERAGEBED -b stdin -wo | cut -f 1-7,11,12 > coverage.txt 
+$SAMTOOLS depth -d 100000 -a -q 20 -Q 20 -b $COVERAGEBED | /usr/bin/awk -v OFS="\t" '{ print $1,$2-1,$2,1+c++,$3; }' | $BEDTOOLS intersect -sorted -a $COVERAGEBED -b stdin -wo | cut -f 1-7,11,12 > coverage.txt 
 
 # positions that are poorly covered (>=20, <50)
 awk -v mincov1=$MINCOV1 -v mincov2=$MINCOV2 -v OFS="\t" '$9<mincov1 && $9>=mincov2 { $2=$2+$8-1; $3=$2+$8; print; }' coverage.txt | $BEDTOOLS merge -i stdin -c 5,5,9,9 -o count_distinct,distinct,count,collapse | awk -v OFS="\t" '{ print "LOWCOV",$0; }'
