@@ -2,9 +2,9 @@
 
 QCVERSION=$(basename $0 .sh)
 
-BEDTOOLS="/usr/local/bedtools2/bin/bedtools"
-SAMTOOLS="/opt/samtools/bin/samtools"
-RSCRIPT="/usr/local/bin/RScript"
+BEDTOOLS="/usr/local/bin/bedtools"
+SAMTOOLS="/usr/local/bin/samtools"
+RSCRIPT="/usr/bin/RScript"
 COVERAGEPLOTSR=$(dirname $0)"/CoveragePlots.R"
 
 REFFASTA=$1 
