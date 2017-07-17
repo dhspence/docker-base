@@ -1,4 +1,4 @@
-FROM dhspence/docker-genomic-analysis
+FROM dhspence/base
 MAINTAINER David H. Spencer <dspencer@wustl.edu>
 
 LABEL \
