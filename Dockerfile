@@ -9,4 +9,4 @@ COPY CoveragePlots.R /usr/local/bin/
 
 RUN ln -s /usr/bin/Rscript /usr/local/bin/
 
-RUN apt-get install lib32ncurses5
+RUN apt-get install libncurses5
