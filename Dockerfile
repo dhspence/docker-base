@@ -9,4 +9,4 @@ COPY CoveragePlots.R /usr/local/bin/
 
 RUN ln -s /usr/bin/Rscript /usr/local/bin/
 
-RUN apt-get install libncurses5
+ENV PATH="/bin/:/usr/bin:/usr/local/bin"
