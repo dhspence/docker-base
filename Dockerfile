@@ -1,4 +1,4 @@
-FROM dhspence/base:latest
+FROM dhspence/docker-genomic-analysis
 MAINTAINER David H. Spencer <dspencer@wustl.edu>
 
 LABEL \
@@ -6,9 +6,3 @@ LABEL \
 
 COPY CalculateCoverageQC.071417.sh /usr/local/bin/
 COPY CoveragePlots.R /usr/local/bin/
-
-RUN ln -s /usr/bin/Rscript /usr/local/bin/
-
-RUN apt-get install bc
-
-ENV PATH "/bin/:/usr/bin/:/usr/local/bin"
