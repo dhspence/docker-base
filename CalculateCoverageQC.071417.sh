@@ -49,4 +49,4 @@ $SAMTOOLS depth -d 100000 -a -q 20 -Q 20 -b $COVERAGEBED $CBAM | /usr/bin/awk -v
 $BEDTOOLS intersect -r -f .50 -s -a <($BEDTOOLS nuc -fi $REFFASTA -bed $AMPLICONBED) -b <($SAMTOOLS view -uf 0x2 -F 0x900 $CBAM | $SAMTOOLS sort -n - | $BEDTOOLS bamtobed -mate1 -bedpe -i stdin 2> /dev/null | /usr/bin/awk -v OFS="\t" '{ if ($9=="+"){ print $1,$2,$6,$7,$8,$9; } else { print $1,$5,$3,$7,$8,$9; } }' | $BEDTOOLS sort -i stdin) -wo | /usr/bin/awk -v OFS="\t" '{ print $0,sqrt(($17-$2)^2)+sqrt(($18-$3)^2); }' | sort -k 19,19 -k 23n,23 | $BEDTOOLS groupby -g 19 -full -c 23 -o first | /usr/bin/awk '$NF<20' | sort -k 1,1 -k 2n,2 -k 4,4 | $BEDTOOLS groupby -i stdin -g 1,2,3,4 -c 4,8 -o count,first > amplicon_counts.txt
 
 # make plots, return amplicon-level coverage by length and GC and gene-level coverage information
-/usr/local/bin/Rscript $COVERAGEPLOTSR $NAME #2> /dev/null # && rm -f amplicon_counts.txt coverage.txt
+$RSCRIPT $COVERAGEPLOTSR $NAME #2> /dev/null # && rm -f amplicon_counts.txt coverage.txt
