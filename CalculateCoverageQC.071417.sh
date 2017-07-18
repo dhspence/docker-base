@@ -4,7 +4,7 @@ QCVERSION=$(basename $0 .sh)
 
 BEDTOOLS="/usr/local/bin/bedtools"
 SAMTOOLS="/usr/local/bin/samtools"
-RSCRIPT="/usr/bin/RScript"
+RSCRIPT="/usr/bin/Rscript"
 COVERAGEPLOTSR=$(dirname $0)"/CoveragePlots.R"
 
 REFFASTA=$1 
