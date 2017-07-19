@@ -2,7 +2,7 @@ require(scales)
 
 sample.name <- commandArgs(T)[1]
 
-pdf(height=8.5,width=11,file="coverage_qc.pdf")
+pdf(height=8.5,width=11,file=paste0(sample.name,".coverage_qc.pdf"))
 layout(matrix(c(1,1,2:5),nrow=3,byrow = T),heights = c(.2,1,1))
 
 op <- par(mar=c(2,2,2,2))
@@ -38,7 +38,7 @@ invisible(lapply(gene.chunks,
   }))
 invisible(dev.off())
 invisible(require(scales))
-pdf(height=11,width=8.5,file="gc_length_qc.pdf")
+pdf(height=11,width=8.5,file=paste0(sample.name,".gc_length_qc.pdf"))
 layout(matrix(1:3,nrow=3,byrow = T),heights = c(.2,1,1))
 
 op <- par(mar=c(2,2,2,2))
