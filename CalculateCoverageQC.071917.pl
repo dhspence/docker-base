@@ -78,14 +78,14 @@ print F "READS_PER_UMI\t",join(",", map { $h{$_} || 0 } 1..25),"\n";
 `$SAMTOOLS depth -d 100000 -a -q 20 -Q 20 -b $COVERAGEBED $CBAM | /usr/bin/awk -v OFS="\t" '{ print \$1,\$2-1,\$2,1+c++,\$3; }' | $BEDTOOLS intersect -a $COVERAGEBED -b stdin -wo | cut -f 1-7,11,12 > $NAME.coverage.txt`;
 
 # positions that are poorly covered (>=20, <50)
-open(C,"/usr/bin/awk -v mincov1=$MINCOV1 -v mincov2=$MINCOV2 -v OFS=\"\t\" '\$9<mincov1 && \$9>=mincov2 { \$2=\$2+\$8-1; \$3=\$2+\$8; print; }' coverage.txt | $BEDTOOLS merge -i stdin -c 5,5,9,9 -o count_distinct,distinct,count,collapse | /usr/bin/awk -v OFS=\"\t\" '{ print \"LOWCOV\",\$0; }' |") || die;
+open(C,"/usr/bin/awk -v mincov1=$MINCOV1 -v mincov2=$MINCOV2 -v OFS=\"\t\" '\$9<mincov1 && \$9>=mincov2 { \$2=\$2+\$8-1; \$3=\$2+\$8; print; }' $NAME.coverage.txt | $BEDTOOLS merge -i stdin -c 5,5,9,9 -o count_distinct,distinct,count,collapse | /usr/bin/awk -v OFS=\"\t\" '{ print \"LOWCOV\",\$0; }' |") || die;
 while(<C>){ 
     print F $_; 
 }
 close C;
 
 # positions that are basically not covered (<20)
-open(C,"/usr/bin/awk -v mincov2=$MINCOV2 -v OFS=\"\t\" '\$9<mincov2 { \$2=\$2+\$8-1; \$3=\$2+\$8; print; }' coverage.txt | $BEDTOOLS merge -i stdin -c 5,5,9,9 -o count_distinct,distinct,count,collapse | /usr/bin/awk -v OFS=\"\t\" '{ print \"NOCOV\",\$0; }' |") || die;
+open(C,"/usr/bin/awk -v mincov2=$MINCOV2 -v OFS=\"\t\" '\$9<mincov2 { \$2=\$2+\$8-1; \$3=\$2+\$8; print; }' $NAME.coverage.txt | $BEDTOOLS merge -i stdin -c 5,5,9,9 -o count_distinct,distinct,count,collapse | /usr/bin/awk -v OFS=\"\t\" '{ print \"NOCOV\",\$0; }' |") || die;
 while(<C>){ 
     print F $_; 
 }
