@@ -85,7 +85,7 @@ while(<C>){
 close C;
 
 # positions that are basically not covered (<20)
-open(C,"/usr/bin/awk -v mincov2=$MINCOV2 -v OFS=\"\t\" '\$4<mincov1 && \$4>=mincov2' $NAME.coverage.txt | $BEDTOOLS merge -i stdin -c 5,5,4,4 -o count_distinct,distinct,count,collapse | /usr/bin/awk -v OFS=\"\t\" '{ print \"NOCOV\",\$0; }' |") || die;
+open(C,"/usr/bin/awk -v mincov2=$MINCOV2 -v OFS=\"\t\" '\$4<mincov2' $NAME.coverage.txt | $BEDTOOLS merge -i stdin -c 5,5,4,4 -o count_distinct,distinct,count,collapse | /usr/bin/awk -v OFS=\"\t\" '{ print \"NOCOV\",\$0; }' |") || die;
 while(<C>){ 
     print F $_;
 }
