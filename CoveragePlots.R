@@ -17,16 +17,16 @@ gene.chunks <- split(genes, ceiling(seq_along(genes)/10))
 invisible(lapply(gene.chunks,
        function(g){
          x <- subset(cov,cov$V5 %in% g)
-         stats <- cbind(aggregate(x$V9 ~ x$V5,FUN = length),
-                        aggregate(x$V9 ~ x$V5,FUN = mean),
-                        aggregate(x$V9 ~ x$V5,FUN = median),
-                        aggregate(x$V9 ~ x$V5,FUN = function(X){ length(which(X<50)) }))[,c(1,2,4,6,8)]
+         stats <- cbind(aggregate(x$V4 ~ x$V5,FUN = length),
+                        aggregate(x$V4 ~ x$V5,FUN = mean),
+                        aggregate(x$V4 ~ x$V5,FUN = median),
+                        aggregate(x$V4 ~ x$V5,FUN = function(X){ length(which(X<50)) }))[,c(1,2,4,6,8)]
          rownames(stats) <- stats[,1]
          apply(stats[,1:5],1,function(X){ cat(c("COVERAGE",X,"\n"),sep="\t"); })
          op <- par(mar=c(4.5,4,4.5,2))
-         boxplot(log2(x$V9+1) ~ x$V5,las=2,axes=F,col="light gray")
+         boxplot(log2(x$V4+1) ~ x$V5,las=2,axes=F,col="light gray")
          axis(1,at=1:nrow(stats),labels=rownames(stats),las=2)
-         yAx <- c(0,1,20,50,100,500,seq(1000,max(x$V9,1000),by=1000))
+         yAx <- c(0,1,20,50,100,500,seq(1000,max(x$V4,1000),by=1000))
          axis(2,at=log2(yAx+1),labels = yAx)
          mtext("Coverage depth (by position)",side=2,line=2.5)
          box()
