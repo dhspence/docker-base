@@ -1,4 +1,4 @@
-FROM dhspence/base
+FROM dhspence/docker-baseimage
 MAINTAINER David H. Spencer <dspencer@wustl.edu>
 
 LABEL \
