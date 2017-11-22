@@ -17,3 +17,4 @@ RUN apt-get update && apt-get install -y --no-install-recommends locales && \
 RUN apt-get install -y bc
 
 RUN ["cpanm", "Statistics::Basic" ]
+
