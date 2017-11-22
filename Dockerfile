@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends locales && \
     LANG=en_US.UTF-8 && \
     /usr/sbin/update-locale LANG=en_US.UTF-8
     
-RUN apt-get install -y bc
-
-RUN ["cpanm", "Statistics::Basic" ]
-
+RUN apt-get install -y bc && \ 
+    cpanm --self-upgrade --sudo && \
+    cpanm Statistics::Basic
+    
