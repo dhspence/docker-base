@@ -15,5 +15,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends locales && \
     /usr/sbin/update-locale LANG=en_US.UTF-8
     
 RUN cpan install Statistics::Basic
+RUN cpan install JSON
 
 RUN apt-get install -y bc
